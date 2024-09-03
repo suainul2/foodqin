@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("province_id")->index();
             $table->string("name");
+            $table->tinyInteger("type")->default(1)->comment("1 kabupaten| 2 kota");
             $table->timestamps();
         });
     }

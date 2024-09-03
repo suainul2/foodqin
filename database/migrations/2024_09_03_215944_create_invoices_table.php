@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal("from_longitude",11,8)->nullable();
             $table->decimal("to_latitude",10,8)->nullable();
             $table->decimal("to_longitude",11,8)->nullable();
+            $table->text("address")->nullable();
             $table->tinyInteger("status")->default(1)->comment("1 mencari driver|2 proses| 3 pengiriman| 4 selesai| 5 cencel");
             $table->timestamps();
         });
