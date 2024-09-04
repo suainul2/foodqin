@@ -12,11 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call(ProvinceSeeder::class);
-        // $this->call(CitySeeder::class);
-        // $this->call(SubdistrictSeeder::class);
-        // $this->call(VillageSeeder::class);
-        $this->call(ProductCategorySeeder::class);
+        ini_set('memory_limit', '512M');
+        $this->call(ProvinceSeeder::class);
+        $this->call(CitySeeder::class);
+        $this->call(SubdistrictSeeder::class);
+        $this->call(VillageSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(ProductCategorySeeder::class);
+        $this->call(ProductSeeder::class);
     }
 }

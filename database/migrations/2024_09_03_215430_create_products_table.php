@@ -15,12 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id")->index();
             $table->unsignedBigInteger("product_category_id")->index();
-            $table->unsignedBigInteger("subdistricts")->index();
             $table->string("name",100);
             $table->integer("price");
-            $table->integer("qty");
+            $table->integer("qty")->default(1);
             $table->text("desc")->nullable();         
-            $table->string("thumbnail");   
+            $table->string("thumbnail")->nullable();   
             $table->timestamps();
         });
     }

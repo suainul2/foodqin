@@ -1,1 +1,0 @@
-@extends('master.app',["title" => "Situs Jual Beli Makanan"])
