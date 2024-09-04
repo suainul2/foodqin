@@ -11,16 +11,15 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    const ROLE_CUSTOMER = 1;
+    const ROLE_SELLER = 2;
+    const ROLE_DRIVER = 3;
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,5 +42,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    function getRoleName() {
+        return [
+            self::ROLE_CUSTOMER => "Pembeli",
+            self::ROLE_SELLER => "Penjual",
+            self::ROLE_DRIVER => "Driver"
+        ];
+    }
+    function getRoleNameAttribute() {
+        return $this->getRoleName()[$this->role];
     }
 }
