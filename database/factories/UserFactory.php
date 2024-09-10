@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Village;
+use App\Models\Subdistrict;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -22,24 +22,16 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    private function getVillageIdRandom() {
-        $village =  Village::inRandomOrder()
-        ->first();
-        return $village->id;
-    }
     public function definition(): array
     {
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'email_verified_at' => now()->toDateTimeString(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             "phone" => substr(fake()->phoneNumber(),0,12),
             "address" => fake()->address(),
-            "latitude" => fake()->latitude(-8.8, -5.9),
-            "longitude" => fake()->longitude(105.5, 114.6),
-            "village_id" => $this->getVillageIdRandom(),
         ];
     }
 

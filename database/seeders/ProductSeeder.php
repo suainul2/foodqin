@@ -10,26 +10,29 @@ use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
 {
-    private function getProductCategoryIdRandom() {
-        $productCategory =  ProductCategory::inRandomOrder()
-        ->first();
-        return $productCategory->id;
-    }
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $users = User::where("role",User::ROLE_SELLER)
-        ->get();
+        $users = User::where("role", User::ROLE_SELLER)
+            ->get();
+        $products = [];
+        $productCategory =  ProductCategory::get()->toArray();
         foreach ($users as $user) {
-           Product::create([
+            $k = array_rand($productCategory);
+            $v = $productCategory[$k];
+            $products[] = [
                 "user_id" => $user->id,
-                "product_category_id" => $this->getProductCategoryIdRandom(),
+                "product_category_id" => $v["id"],
                 "name" => fake()->name(),
-                "price" => rand(10000,1000000),
-                "desc" => fake()->text(100), 
-           ]);
+                "price" => rand(10000, 1000000),
+                "desc" => fake()->text(100),
+            ];
+        }
+        $chunk_products = array_chunk($products, 993);
+        foreach ($chunk_products as $chunk_product) {
+            Product::insert($chunk_product);
         }
     }
 }
