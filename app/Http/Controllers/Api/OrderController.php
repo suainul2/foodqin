@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -53,9 +54,9 @@ class OrderController extends Controller
 
         return ($distance*self::SHIPPING_COST_KM);
     }
-    function order()
+    function order(Request $request)
     {
-        $customer = User::where("role", User::ROLE_CUSTOMER)->inRandomOrder()->first();
+        $customer = User::where("role", User::ROLE_CUSTOMER)->where("id",$request->query("user_id"))->first();
         $customer_latitude = $customer->latitude;
         $customer_longitude = $customer->longitude;
         $radius = 7;
